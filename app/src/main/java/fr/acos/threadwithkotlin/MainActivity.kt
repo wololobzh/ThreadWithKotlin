@@ -2,9 +2,9 @@ package fr.acos.threadwithkotlin
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity()
 {
@@ -24,10 +24,15 @@ class MainActivity : AppCompatActivity()
             {
                 //Fait dormir le thread contenant le traitement long
                 Thread.sleep(1000)
-                //Affichage dans les logs de l'évolution de l'exécution
-                Log.i("XXX","Evolution : $i / 60")
+                //Affichage de l'évolution dans le thread UI
+                runOnUiThread(
+                        {
+                    tv_hello.text = "$i"
+                    }
+                )
+
             }
-        })
+        }).start()
     }
 
     /**
